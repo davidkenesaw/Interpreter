@@ -12,6 +12,8 @@ public class Scan {
         token = isLexeme(lexeme);
     }
 
+
+
     public String isLexeme(String value){
         switch (value) {
             case "=":
@@ -51,6 +53,7 @@ public class Scan {
             case "function":
                 token = "func_keyword";
                 break;
+
 
             default:
                 if(isInteger(value)) {
