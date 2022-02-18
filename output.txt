@@ -1,0 +1,7 @@
+Lexeme='function',      token='func_keyword'
+Lexeme='a()',      token='meth_name'
+Lexeme='x',      token='id'
+Lexeme='=',      token='assignment_operator'
+Lexeme='1',      token='literal_integer'
+Lexeme='print(x)',      token='id'
+Lexeme='end',      token='id'
