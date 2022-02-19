@@ -120,6 +120,6 @@ public class Scan {
     @Override
     public String toString() {
         String linenumber = Integer.toString(LineNumber);
-        return "Lexeme: " + Lexeme + " Token: " + token + " LineNumber: " + linenumber;
+        return "Lexeme: " + Lexeme + ", Token: " + token + ", LineNumber: " + linenumber;
     }
 }
