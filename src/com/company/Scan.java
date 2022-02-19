@@ -19,7 +19,10 @@ public class Scan {
         String linenumber = Integer.toString(LineNumber);
         switch (value) {
             case "+=":
-                token = "left_parenth_operator";
+                token = "pe_operator";
+                break;
+            case "-=":
+                token = "me_operator";
                 break;
             case "(":
                 token = "left_parenth_operator";

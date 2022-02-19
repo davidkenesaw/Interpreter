@@ -1,8 +1,10 @@
-//test 2 in julia
+//Test 3 in Julia
+
 function a()
 	x = 1
-	while x < 4 do
-		x += x 1
-	end
-	print(x)
+		if ~= x 1 then
+			print(0)
+		else
+			print(1)
+		end
 end
