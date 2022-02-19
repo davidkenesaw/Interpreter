@@ -5,16 +5,18 @@ public class Scan {
 
     String Lexeme;
     String token;
+    int LineNumber;
 
-
-    public Scan(String lexeme) {
+    public Scan(String lexeme, int LineNumber) {
         Lexeme = lexeme;
         token = isLexeme(lexeme);
+        this.LineNumber = LineNumber;
     }
 
 
 
     public String isLexeme(String value){
+        String linenumber = Integer.toString(LineNumber);
         switch (value) {
             case "(":
                 token = "left_parenth_operator";
@@ -65,6 +67,18 @@ public class Scan {
             case "end":
                 token = "end_keyword";
                 break;
+            case "while":
+                token = "while_keyword";
+                break;
+            case "if":
+                token = "if_keyword";
+                break;
+            case "else":
+                token = "else_keyword";
+                break;
+            case "then":
+                token = "then_keyword";
+                break;
 
             default:
                 if(isInteger(value)) {
@@ -96,7 +110,7 @@ public class Scan {
 
     @Override
     public String toString() {
-        return "Lexeme='" + Lexeme + '\'' +
-                ",      token='" + token + '\'';
+        String linenumber = Integer.toString(LineNumber);
+        return "Lexeme: " + Lexeme + " Token: " + token + " LineNumber: " + linenumber;
     }
 }

@@ -9,23 +9,16 @@ public class Main {
     public static ArrayList<Scan> Array = new ArrayList<Scan>();
     public static BufferedReader reader=null;
     public static BufferedWriter writer=null;
-    public static void main(String[] args) throws IOException {
-        String text = "";
 
+    public static ArrayList<Integer> Array2 = new ArrayList<Integer>();
+
+    public static void main(String[] args) throws IOException {
+
+        String InputFile = "inputfile.txt";
+        String OutputFile = "output.txt";
 
         try{
-            reader = new BufferedReader(new FileReader("inputfile.txt"));writer = new BufferedWriter(new FileWriter("output.txt"));
-            String line ;
-
-            while((line =reader.readLine()) != null){
-
-                if(!line.substring(0,2).equals("//")){
-                    text += line + " ";
-                }
-
-            }
-
-            scan(text);
+            scan(InputFile,OutputFile);
 
         }catch (IOException e){
             e.printStackTrace();
@@ -36,7 +29,29 @@ public class Main {
         }
 
     }
-    public static void scan(String text) throws IOException {
+    public static void scan(String input, String output) throws IOException {
+
+        String text = "";
+
+        reader = new BufferedReader(new FileReader(input));writer = new BufferedWriter(new FileWriter(output));
+        String line ;
+
+        int count = 1;
+        while((line =reader.readLine()) != null){
+            if(!line.contains("//")&& !line.isBlank()){
+                text += line + " ";
+                String[] tempCounter = line.split(" ");
+                for(int loop = 0;loop<tempCounter.length;loop++){
+                    if(!line.isBlank()){
+                        Array2.add(count);
+                    }
+                }
+            }
+            count++;
+        }
+
+
+
         String[] tokens = text.split("\\s+");
 
         for(int loop = 0; loop < tokens.length;loop++){
@@ -56,10 +71,10 @@ public class Main {
                 String[] tempArray = temp.split("\\s+");
 
                 for(int loop1 = 0; loop1 < tempArray.length;loop1++){
-                        Array.add(new Scan(tempArray[loop1]));
+                        Array.add(new Scan(tempArray[loop1], Array2.get(loop)));
                 }
             }else{
-                Array.add(new Scan(tokens[loop]));
+                Array.add(new Scan(tokens[loop],Array2.get(loop)));
             }
 
 
