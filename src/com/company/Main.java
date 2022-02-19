@@ -10,7 +10,7 @@ public class Main {
     public static BufferedReader reader=null;
     public static BufferedWriter writer=null;
 
-    public static ArrayList<Integer> Array2 = new ArrayList<Integer>();
+    public static ArrayList<Integer> LineNumbers = new ArrayList<Integer>();
 
     public static void main(String[] args) throws IOException {
 
@@ -43,7 +43,7 @@ public class Main {
                 String[] tempCounter = line.split(" ");
                 for(int loop = 0;loop<tempCounter.length;loop++){
                     if(!line.isBlank()){
-                        Array2.add(count);
+                        LineNumbers.add(count);
                     }
                 }
             }
@@ -71,10 +71,10 @@ public class Main {
                 String[] tempArray = temp.split("\\s+");
 
                 for(int loop1 = 0; loop1 < tempArray.length;loop1++){
-                        Array.add(new Scan(tempArray[loop1], Array2.get(loop)));
+                        Array.add(new Scan(tempArray[loop1], LineNumbers.get(loop)));
                 }
             }else{
-                Array.add(new Scan(tokens[loop],Array2.get(loop)));
+                Array.add(new Scan(tokens[loop],LineNumbers.get(loop)));
             }
 
 
