@@ -18,6 +18,9 @@ public class Scan {
     public String isLexeme(String value){
         String linenumber = Integer.toString(LineNumber);
         switch (value) {
+            case "+=":
+                token = "left_parenth_operator";
+                break;
             case "(":
                 token = "left_parenth_operator";
                 break;
@@ -78,6 +81,9 @@ public class Scan {
                 break;
             case "then":
                 token = "then_keyword";
+                break;
+            case "do":
+                token = "do_keyword";
                 break;
 
             default:
