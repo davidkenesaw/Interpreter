@@ -1,8 +1,8 @@
 
 /*
  * Class:       CS 4308 Section
- * Term:        ____________
- * Name:       <Your Name>
+ * Term:        Spring
+ * Name:       David VanAsselberg
  * Instructor:   Sharon Perry
  * Project:     Deliverable P1 Scanner
  */
