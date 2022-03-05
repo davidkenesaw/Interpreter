@@ -1,22 +1,30 @@
+
+/*
+ * Class:       CS 4308 Section
+ * Term:        ____________
+ * Name:       <Your Name>
+ * Instructor:   Sharon Perry
+ * Project:     Deliverable P1 Scanner
+ */
+
 package com.company;
 
-
 public class Scan {
-
+    //lexeme fields
     String Lexeme;
     String token;
     int LineNumber;
 
     public Scan(String lexeme, int LineNumber) {
+        //constructor for a lexeme
         Lexeme = lexeme;
         token = isLexeme(lexeme);
+        //lexeme is checked in this function to see if it exists in the language
         this.LineNumber = LineNumber;
     }
 
-
-
     public String isLexeme(String value){
-        String linenumber = Integer.toString(LineNumber);
+        //method checks to see if lexeme exists in language
         switch (value) {
             case "+=":
                 token = "pe_operator";
@@ -90,14 +98,12 @@ public class Scan {
                 break;
 
             default:
-                if(isInteger(value)) {
+                if(isInteger(value)) {//checks if lexeme is a number
                     token = "literal_integer";
-                }else if(Character.isLetter(value.charAt(0)) && value.contains("()")){
-                    token = "meth_name";
                 }else if(Character.isLetter(value.charAt(0))){
                     token = "id";
                 }
-                else {
+                else {//lexeme not recognized
                     token = "error";
                 }
 
@@ -107,6 +113,7 @@ public class Scan {
 
     }
     public static boolean isInteger(String value) {
+        //method to check if variable is an integer
         try {
             Integer.parseInt(value);
         } catch(NumberFormatException exception) {
@@ -119,6 +126,7 @@ public class Scan {
 
     @Override
     public String toString() {
+        //returns a string to display lexeme, token, line number
         String linenumber = Integer.toString(LineNumber);
         return "Lexeme: " + Lexeme + ", Token: " + token + ", LineNumber: " + linenumber;
     }
