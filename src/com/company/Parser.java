@@ -2,11 +2,8 @@
 
 /*
 What to finish:
--finish the while function
 -do the if function
 -find out what a repeat function is
--do boolean expression     X
--do relative op    X
 */
 
 
@@ -228,20 +225,6 @@ public class Parser {
         else if(value.equals("eq_operator"))return true;
         else if(value.equals("ne_operator"))return true;
         return false;
-    }
-
-    public Queue<Scan> AddtoQueue(){
-        Queue<Scan> temp = new LinkedList<Scan>();
-        for(int loop = 0; loop < tokenParse.size(); loop++){
-            if(tokenParse.peek().getToken().equals("end_keyword")){
-                temp.add(tokenParse.peek());
-                tokenParse.remove();
-                break;
-            }
-            temp.add(tokenParse.peek());
-            tokenParse.remove();
-        }
-        return temp;
     }
 
     public Queue tostring() {
