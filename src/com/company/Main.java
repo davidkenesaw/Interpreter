@@ -12,7 +12,6 @@
 package com.company;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
@@ -32,6 +31,9 @@ public class Main {
         String OutputFile = "output.txt";
         //Symbol Table file
 
+
+
+
         try{
             scan(InputFile,OutputFile);
             //method used to scan input file to build the symbol table
@@ -45,6 +47,11 @@ public class Main {
             writer.close();
             //close the reader and writer
         }
+
+        Parser parse = new Parser(SymbolTable);
+
+        System.out.println(parse.funcion());
+
 
     }
 

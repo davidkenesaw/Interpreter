@@ -60,16 +60,16 @@ public class Scan {
                 token = "ne_operator";
                 break;
             case "+":
-                token = "add_operator";
+                token = "add_ARITHoperator";
                 break;
             case "-":
-                token = "sub_operator";
+                token = "sub_ARITHoperator";
                 break;
             case "*":
-                token = "mul_operator";
+                token = "mul_ARITHoperator";
                 break;
             case "/":
-                token = "div_operator";
+                token = "div_ARITHoperator";
                 break;
 
             case "function":
@@ -112,6 +112,31 @@ public class Scan {
         return token;
 
     }
+
+    public String getLexeme() {
+        return Lexeme;
+    }
+
+    public void setLexeme(String lexeme) {
+        Lexeme = lexeme;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getLineNumber() {
+        return LineNumber;
+    }
+
+    public void setLineNumber(int lineNumber) {
+        LineNumber = lineNumber;
+    }
+
     public static boolean isInteger(String value) {
         //method to check if variable is an integer
         try {
