@@ -51,7 +51,7 @@ public class Main {
         Parser parse = new Parser(SymbolTable);
 
         System.out.println(parse.funcion());
-
+        System.out.println(parse.ParseTree);
 
     }
 

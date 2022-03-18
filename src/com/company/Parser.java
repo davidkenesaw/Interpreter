@@ -20,7 +20,7 @@ import java.util.Queue;
 
 public class Parser {
 
-    ArrayList<Queue> queueArray = new ArrayList<Queue>();
+    ArrayList<String> ParseTree = new ArrayList<String>();
     Queue<Scan> tokenParse = new LinkedList<Scan>();
 
     public Parser(ArrayList<Scan> array) {
@@ -42,12 +42,14 @@ public class Parser {
                         tokenParse.remove();
                         //check for body of function
 
+                        ParseTree.add("<program> -> function id ( )");
                         if(statement() == false)return false;
 
 
                         //check for end keyword
 
                         if(tokenParse.peek().getToken().equals("end_keyword")){
+                            ParseTree.add("end");
                             return true;
                         }
                         else return false;
@@ -89,15 +91,18 @@ public class Parser {
         for(int loop = 0; loop < tokenParse.size()-1; loop++) {
             if(tokenParse.peek().getToken().equals("while_keyword")){
                 tokenParse.remove();
+                ParseTree.add("while");
                 whileStatement();
             }else if (tokenParse.peek().getToken().equals("id")) {
                 tokenParse.remove();
+                ParseTree.add("id");
                 if (AssignmentStatement() == false) {
                     return false;
                 }
 
             } else if (tokenParse.peek().getToken().equals("print_keyword")) {
                 tokenParse.remove();
+                ParseTree.add("print");
                 if (printStatement() == false) {
                     return false;
                 }
@@ -114,10 +119,13 @@ public class Parser {
     public boolean printStatement(){
         if(tokenParse.peek().getToken().equals("left_parenth_operator")){
             tokenParse.remove();
+            ParseTree.add("(");
             if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")){
+                ParseTree.add(tokenParse.peek().getToken());
                 tokenParse.remove();
                 if(tokenParse.peek().getToken().equals("right_parenth_operator")){
                     tokenParse.remove();
+                    ParseTree.add(")");
                     return true;
                 }else {
                     System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
@@ -140,8 +148,10 @@ public class Parser {
     }
     public boolean AssignmentStatement(){
         if(tokenParse.peek().getToken().equals("assignment_operator")){
+            ParseTree.add("<assignment_operator");
             tokenParse.remove();
             if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")){
+                ParseTree.add(tokenParse.peek().getToken());
                 tokenParse.remove();
                 return true;
             }else {
@@ -163,11 +173,13 @@ public class Parser {
         if(boolExpression() == true){
             if(tokenParse.peek().getToken().equals("do_keyword")){
                 tokenParse.remove();
+                ParseTree.add("do");
                 //check body
                 if(statement() == false)return false;
                 //check end keyword
                 if(tokenParse.peek().getToken().equals("end_keyword")){
                     tokenParse.remove();
+                    ParseTree.add("end");
                     return true;
                 }
                 else return false;
@@ -185,10 +197,13 @@ public class Parser {
     //================================expressions========================================================================
     public boolean boolExpression(){
         if(relativeOps(tokenParse.peek().getToken()) == true) {
+            ParseTree.add(tokenParse.peek().getLexeme());
             tokenParse.remove();
             if (tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")) {
+                ParseTree.add(tokenParse.peek().getToken());
                 tokenParse.remove();
                 if (tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")) {
+                    ParseTree.add(tokenParse.peek().getToken());
                     tokenParse.remove();
                     return true;
                 } else {
