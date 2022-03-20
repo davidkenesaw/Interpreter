@@ -1,5 +1,12 @@
 
 
+/*
+ * Class:       CS 4308 Section 3
+ * Term:        Spring
+ * Name:       David VanAsselberg
+ * Instructor:   Sharon Perry
+ * Project:     Deliverable P2 Parser
+ */
 
 
 
@@ -124,7 +131,7 @@ public class Parser {
             ParseTree.add("(");
             if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")){
                 //if the next token is equal to id | if the next token is equal to integer
-                ParseTree.add(tokenParse.peek().getToken());
+                ParseTree.add("<"+tokenParse.peek().getToken()+">");
                 tokenParse.remove();
                 if(tokenParse.peek().getToken().equals("right_parenth_operator")){
                     //if the next token is equal to right parenthesis
@@ -153,11 +160,11 @@ public class Parser {
     public boolean AssignmentStatement(){
         if(tokenParse.peek().getToken().equals("assignment_operator")){
             //checks to see if = sign is present
-            ParseTree.add("<assignment_operator");
+            ParseTree.add("<assignment_operator>");
             tokenParse.remove();
             if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")){
                 //checks to see if id is present | checks to see if integer is present
-                ParseTree.add(tokenParse.peek().getToken());
+                ParseTree.add("<"+tokenParse.peek().getToken()+">");
                 tokenParse.remove();
                 return true;
             }else {
@@ -212,11 +219,11 @@ public class Parser {
             tokenParse.remove();
             if (tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")) {
                 //checks for an id | checks for an integer
-                ParseTree.add(tokenParse.peek().getToken());
+                ParseTree.add("<"+tokenParse.peek().getToken()+">");
                 tokenParse.remove();
                 if (tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")) {
                     //checks for an id | checks for an integer
-                    ParseTree.add(tokenParse.peek().getToken());
+                    ParseTree.add("<"+tokenParse.peek().getToken()+">");
                     tokenParse.remove();
                     return true;
                 } else {

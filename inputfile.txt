@@ -2,10 +2,10 @@
 
 //Test 1 in Julia
 function a()
-	x = 1
+	x  1
 		print(x)
 
-    while >= x 4 do
+    while < x 4 do
         print(1)
     end
 

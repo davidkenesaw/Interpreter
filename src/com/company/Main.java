@@ -7,7 +7,15 @@
  * Project:     Deliverable P1 Scanner
  */
 
+//and
 
+/*
+ * Class:       CS 4308 Section 3
+ * Term:        Spring
+ * Name:       David VanAsselberg
+ * Instructor:   Sharon Perry
+ * Project:     Deliverable P2 Parser
+ */
 
 package com.company;
 
@@ -54,7 +62,7 @@ public class Main {
 
         System.out.println();
         parse.function();
-
+        System.out.println();
 
     }
 
@@ -109,13 +117,13 @@ public class Main {
 
 
         }
-        System.out.println("====================================Scanner=========================================");
+        System.out.println("\n====================================Scanner=========================================");
         for(int loop = 0;loop< SymbolTable.size();loop++){
             //adds all lexemes and tokens to output file
             System.out.println(SymbolTable.get(loop).toString());
             writer.write(SymbolTable.get(loop).toString()+"\n");
         }
-        System.out.println("====================================Parser output=========================================");
+        System.out.println("\n====================================Parser output=========================================");
     }
 
 }
