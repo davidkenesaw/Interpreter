@@ -100,7 +100,7 @@ public class Scan {
             default:
                 if(isInteger(value)) {//checks if lexeme is a number
                     token = "literal_integer";
-                }else if(Character.isLetter(value.charAt(0))){
+                }else if(Character.isLetter(value.charAt(0)) && value.length() == 1){
                     token = "id";
                 }
                 else {//lexeme not recognized

@@ -50,6 +50,7 @@ public class Parser {
 
                         if(tokenParse.peek().getToken().equals("end_keyword")){
                             ParseTree.add("end");
+                            PARSETREE();
                             return true;
                         }
                         else return false;
@@ -240,6 +241,11 @@ public class Parser {
         else if(value.equals("eq_operator"))return true;
         else if(value.equals("ne_operator"))return true;
         return false;
+    }
+    public void PARSETREE(){
+        for(int loop = 0; loop < ParseTree.size();loop++){
+            System.out.print(ParseTree.get(loop) + " ");
+        }
     }
 
     public Queue tostring() {

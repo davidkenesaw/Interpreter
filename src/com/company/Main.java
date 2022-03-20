@@ -50,8 +50,9 @@ public class Main {
 
         Parser parse = new Parser(SymbolTable);
 
-        System.out.println(parse.funcion());
-        System.out.println(parse.ParseTree);
+        System.out.println();
+        parse.funcion();
+
 
     }
 
@@ -106,10 +107,13 @@ public class Main {
 
 
         }
+        System.out.println("====================================Scanner=========================================");
         for(int loop = 0;loop< SymbolTable.size();loop++){
             //adds all lexemes and tokens to output file
+            System.out.println(SymbolTable.get(loop).toString());
             writer.write(SymbolTable.get(loop).toString()+"\n");
         }
+        System.out.println("====================================Parser output=========================================");
     }
 
 }
