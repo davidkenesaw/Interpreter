@@ -33,7 +33,7 @@ public class Main {
 
 
 
-
+        //Scanner
         try{
             scan(InputFile,OutputFile);
             //method used to scan input file to build the symbol table
@@ -48,10 +48,12 @@ public class Main {
             //close the reader and writer
         }
 
+
+        //Parser
         Parser parse = new Parser(SymbolTable);
 
         System.out.println();
-        parse.funcion();
+        parse.function();
 
 
     }
