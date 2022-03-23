@@ -30,7 +30,6 @@ public class Parser {
     }
 
     //BNF
-    //this is a comment
     public boolean function(){
         //if the token is equal to function
         if(tokenParse.peek().getToken().equals("func_keyword")){
