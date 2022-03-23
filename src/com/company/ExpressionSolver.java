@@ -3,15 +3,7 @@ package com.company;
 import java.util.Stack;
 
 public class ExpressionSolver {
-    static Boolean isOperand(char c)
-    {
-        // If the character is a digit
-        // then it must be an operand
-        if (c >= 48 && c <= 57)
-            return true;
-        else
-            return false;
-    }
+
     static int evaluatePostfix(String exp)
     {
         //create a stack
