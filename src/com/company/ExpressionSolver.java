@@ -4,15 +4,15 @@ import java.util.Stack;
 
 public class ExpressionSolver {
 
-    static int evaluatePostfix(String exp)
+    static int evaluatePostfix(String value)
     {
         //create a stack
         Stack<Integer> stack=new Stack<>();
 
         // Scan all characters one by one
-        for(int i=0;i<exp.length();i++)
+        for(int i=0;i<value.length();i++)
         {
-            char c=exp.charAt(i);
+            char c=value.charAt(i);
 
             // If the scanned character is an operand (number here),
             // push it to the stack.
