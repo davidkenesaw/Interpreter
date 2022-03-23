@@ -10,14 +10,14 @@ public class ExpressionSolver {
         Stack<Integer> stack=new Stack<>();
 
         // Scan all characters one by one
-        for(int i=0;i<value.length();i++)
+        for(int loop=0;loop<value.length();loop++)
         {
-            char c=value.charAt(i);
+            char character=value.charAt(loop);
 
             // If the scanned character is an operand (number here),
             // push it to the stack.
-            if(Character.isDigit(c))
-                stack.push(c - '0');
+            if(Character.isDigit(character))
+                stack.push(character - '0');
 
                 //  If the scanned character is an operator, pop two
                 // elements from stack apply the operator
@@ -26,7 +26,7 @@ public class ExpressionSolver {
                 int val1 = stack.pop();
                 int val2 = stack.pop();
 
-                switch(c)
+                switch(character)
                 {
                     case '+':
                         stack.push(val2+val1);
