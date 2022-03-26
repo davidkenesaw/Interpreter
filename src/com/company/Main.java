@@ -43,7 +43,7 @@ public class Main {
 
         //Scanner
         try{
-            scan(InputFile,OutputFile);
+            scan2(InputFile,OutputFile);
             //method used to scan input file to build the symbol table
 
         }catch (IOException e){
@@ -55,7 +55,11 @@ public class Main {
             writer.close();
             //close the reader and writer
         }
-
+        System.out.println("==================================Scanner=====================================");
+        System.out.println();
+        printTable();
+        System.out.println();
+        System.out.println("==================================Parser======================================");
 
         //Parser
         Parser parse = new Parser(SymbolTable);
@@ -64,66 +68,39 @@ public class Main {
         parse.function();
         System.out.println();
 
+        System.out.println("==================================Interpreter==================================");
+
+        //Parser
+        Interpreter interpret = new Interpreter(SymbolTable);
+
+
     }
-
-    public static void scan(String input, String output) throws IOException {
-        //method used for scanning the input file and building symbol table
-        String text = "";
-
+    public static void scan2(String input, String output) throws IOException {
         reader = new BufferedReader(new FileReader(input));
         writer = new BufferedWriter(new FileWriter(output));
 
+        int LineNumber = 1;
         String line;
-
-        int count = 1;//temp variable for line number
-        while((line =reader.readLine()) != null){//while line is not equal to null
-            if(!line.contains("//")&& !line.isBlank()){//if the line contains "//" skip the line
-                text += line + " ";//contains all text in the file
-                String[] tempCounter = line.split(" ");
-                for(int loop = 0;loop<tempCounter.length;loop++){
-                    if(!line.isBlank()){
-                        LineNumbers.add(count);
-                    }
-                }
-            }
-            count++;
-        }
-        String[] tokens = text.split("\\s+");//tokenize the text from the source code
-
-        for(int loop = 0; loop < tokens.length;loop++){//check if lexeme contains parenthesis
-            if(tokens[loop].contains("(") && tokens[loop].contains(")")){
-                String temp = "";
-                for(int loop1 = 0; loop1 < tokens[loop].length(); loop1++){
-                    if(tokens[loop].charAt(loop1) == '('){
-                        temp += " ( ";
-                    }else if(tokens[loop].charAt(loop1) == ')'){
-                        temp += " ) ";
-                    }else{
-                        temp += tokens[loop].charAt(loop1);
-                    }
-                }
-
-
-                String[] tempArray = temp.split("\\s+");//tokenizes the lexeme further
-
-                for(int loop1 = 0; loop1 < tempArray.length;loop1++){
-                    //adds lexemes to the symbol table array list
-                    SymbolTable.add(new Scan(tempArray[loop1], LineNumbers.get(loop)));
-                }
+        while((line = reader.readLine()) != null){
+            //System.out.println(line);
+            if(!line.isBlank()) {
+                line = line.trim();
+                String[] CurrentLine = line.split("[()\\s]+");
+                AddToTable(CurrentLine, LineNumber);
+                LineNumber++;
             }else{
-                //adds lexeme to the symbol table array list
-                SymbolTable.add(new Scan(tokens[loop],LineNumbers.get(loop)));
+                LineNumber++;
             }
-
-
         }
-        System.out.println("\n====================================Scanner=========================================");
-        for(int loop = 0;loop< SymbolTable.size();loop++){
-            //adds all lexemes and tokens to output file
-            System.out.println(SymbolTable.get(loop).toString());
-            writer.write(SymbolTable.get(loop).toString()+"\n");
-        }
-        System.out.println("\n====================================Parser output=========================================");
     }
-
+    public static void printTable(){
+        for(int loop = 0; loop < SymbolTable.size(); loop++){
+            System.out.println(SymbolTable.get(loop).toString());
+        }
+    }
+    public static void AddToTable(String[] array, int lineNumber){
+        for(int loop = 0; loop < array.length; loop++){
+            SymbolTable.add(new Scan(array[loop],lineNumber));
+        }
+    }
 }

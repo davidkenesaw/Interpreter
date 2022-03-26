@@ -37,12 +37,9 @@ public class Parser {
             //if the next token is equal to id
             if(tokenParse.peek().getToken().equals("id")){
                 tokenParse.remove();
-                //if the next token is equal to left parenthesis
-                if(tokenParse.peek().getToken().equals("left_parenth_operator")){
-                    tokenParse.remove();
-                    //if the next token is equal to right parenthesis
-                    if(tokenParse.peek().getToken().equals("right_parenth_operator")){
-                        tokenParse.remove();
+
+
+
                         //check for body of function
 
                         ParseTree.add("<program> -> function id ( )");
@@ -56,20 +53,8 @@ public class Parser {
                             return true;
                         }
                         else return false;
-                    }else {
-                        //if the next token is not equal to right parenthesis
-                        System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
-                        System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
-                        System.out.println("missing right parenthesis");
-                        return false;
-                    }
-                }else {
-                    //if the next token is not equal to id
-                    System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
-                    System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
-                    System.out.println("missing left parenthesis");
-                    return false;
-                }
+
+
             }else {
                 //if the next token is not equal to left Parenthesis
                 System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
@@ -93,8 +78,13 @@ public class Parser {
 
         //put in loop
         for(int loop = 0; loop < tokenParse.size()-1; loop++) {
-
-            if(tokenParse.peek().getToken().equals("while_keyword")){
+            //if(tokenParse.peek().getToken().equals("if_keyword")) {
+                //if statement is a if statement
+                //tokenParse.remove();
+                //ParseTree.add("if");
+                //ifStatement();
+            //}
+        if(tokenParse.peek().getToken().equals("while_keyword")){
                 //if statement is a while statement
                 tokenParse.remove();
                 ParseTree.add("while");
@@ -114,7 +104,12 @@ public class Parser {
                 if (printStatement() == false) {
                     return false;
                 }
-            } else {
+            }
+            else if (tokenParse.peek().getToken().equals("end_keyword")) {
+                tokenParse.remove();
+                ParseTree.add("end");
+            }
+            else{
                 //if statement is not in the grammar
                 System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
                 System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
@@ -124,48 +119,64 @@ public class Parser {
         }
         return true;
     }
-    public boolean printStatement(){
-        if(tokenParse.peek().getToken().equals("left_parenth_operator")){
-            //if the next token is equal to left parenthesis
-            tokenParse.remove();
-            ParseTree.add("(");
-            if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")){
-                //if the next token is equal to id | if the next token is equal to integer
-                ParseTree.add("<"+tokenParse.peek().getToken()+">");
+    /*
+    public boolean ifStatement(){
+        if(boolExpression() == true){
+            //checks for rest of if statement
+            if(tokenParse.peek().getToken().equals("then_keyword")){
+                //checks to see if there is a then keyword
                 tokenParse.remove();
-                if(tokenParse.peek().getToken().equals("right_parenth_operator")){
-                    //if the next token is equal to right parenthesis
+                ParseTree.add("then");
+                //check body
+                if(statement() == false)return false;
+                if(tokenParse.peek().getToken().equals("else_keyword")) {
                     tokenParse.remove();
-                    ParseTree.add(")");
+                    ParseTree.add("else");
+                    if(statement() == false)return false;
                     return true;
-                }else {
+                }else{
                     System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
                     System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
-                    System.out.println("missing right parenthesis");
+                    System.out.println("missing else keyword");
                     return false;
                 }
             }else {
                 System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
                 System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
-                System.out.println("missing id or integer");
+                System.out.println("missing then keyword");
                 return false;
             }
         }else {
-            System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
-            System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
-            System.out.println("missing left parenthesis");
             return false;
         }
+    }
+
+     */
+    public boolean printStatement(){
+
+            if(ArithmeticExpression(tokenParse.peek().getLineNumber())){
+                //if the next token is equal to id | if the next token is equal to integer
+
+                    return true;
+
+            }else {
+                System.out.println("problem");
+                System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
+                System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
+                System.out.println("missing id or integer");
+                return false;
+            }
+
     }
     public boolean AssignmentStatement(){
         if(tokenParse.peek().getToken().equals("assignment_operator")){
             //checks to see if = sign is present
             ParseTree.add("<assignment_operator>");
             tokenParse.remove();
-            if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")){
+            if(ArithmeticExpression(tokenParse.peek().getLineNumber())){
                 //checks to see if id is present | checks to see if integer is present
-                ParseTree.add("<"+tokenParse.peek().getToken()+">");
-                tokenParse.remove();
+                //ParseTree.add("<"+tokenParse.peek().getToken()+">");
+                //tokenParse.remove();
                 return true;
             }else {
                 System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
@@ -191,14 +202,7 @@ public class Parser {
                 ParseTree.add("do");
                 //check body
                 if(statement() == false)return false;
-                //check end keyword
-                if(tokenParse.peek().getToken().equals("end_keyword")){
-                    //checks for end keyword
-                    tokenParse.remove();
-                    ParseTree.add("end");
-                    return true;
-                }
-                else return false;
+                return true;
             }else {
                 System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
                 System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
@@ -220,7 +224,7 @@ public class Parser {
             if (tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")) {
                 //checks for an id | checks for an integer
                 ParseTree.add("<"+tokenParse.peek().getToken()+">");
-                tokenParse.remove();
+                tokenParse.remove();//ArithmeticExpression(tokenParse.peek().getLineNumber())
                 if (tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")) {
                     //checks for an id | checks for an integer
                     ParseTree.add("<"+tokenParse.peek().getToken()+">");
@@ -245,7 +249,24 @@ public class Parser {
             return false;
         }
     }
+    public boolean ArithmeticExpression(int LineNumber){
+        int temp = LineNumber;
+        while (temp == tokenParse.peek().getLineNumber()){
+            //System.out.println(tokenParse.peek().getLexeme() + tokenParse.peek().getLineNumber());
 
+            if(tokenParse.peek().getToken().equals("id") || tokenParse.peek().getToken().equals("literal_integer")||ArithmeticOps(tokenParse.peek().getToken())==true){
+
+                ParseTree.add("<"+tokenParse.peek().getToken()+">");
+                tokenParse.remove();
+
+                //return true;
+            }else{
+                return false;
+            }
+
+        }
+        return true;
+    }
     //============================Helpers=================================================================
     public void AddtoQueue(ArrayList<Scan> array){
         //fills queue with tokens
@@ -261,6 +282,14 @@ public class Parser {
         else if(value.equals("ge_operator"))return true;
         else if(value.equals("eq_operator"))return true;
         else if(value.equals("ne_operator"))return true;
+        return false;
+    }
+    public boolean ArithmeticOps(String value){
+        //checks if value is a relative operator
+        if(value.equals("add_ARITHoperator"))return true;
+        else if(value.equals("sub_ARITHoperator"))return true;
+        else if(value.equals("mul_ARITHoperator"))return true;
+        else if(value.equals("div_ARITHoperator"))return true;
         return false;
     }
     public void PARSETREE(){
