@@ -124,8 +124,9 @@ public class ExpressionSolver {
         return result;
     }
 
-    public static int solve(String value){
-        return evaluatePostfix(infixToPostfix(value));
+    public static String solve(String value){
+        int temp = evaluatePostfix(infixToPostfix(value));
+        return Integer.toString(temp);
     }
 
 }

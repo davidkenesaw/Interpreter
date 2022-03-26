@@ -70,9 +70,11 @@ public class Main {
 
         System.out.println("==================================Interpreter==================================");
 
-        //Parser
+        //Interpreter
         Interpreter interpret = new Interpreter(SymbolTable);
+        interpret.interpret();
 
+        interpret.printVariables();
 
     }
     public static void scan2(String input, String output) throws IOException {
