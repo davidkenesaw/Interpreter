@@ -4,49 +4,43 @@ import java.util.Stack;
 
 public class ExpressionSolver {
 
-    static int evaluatePostfix(String value)
+    public static int evalPostfix(String express)
     {
-        //create a stack
-        Stack<Integer> stack=new Stack<>();
+        Stack<Integer> st = new Stack<>();
 
-        // Scan all characters one by one
-        for(int loop=0;loop<value.length();loop++)
+        for(int i=0; i < express.length(); i++) /* loop to scan all elements of the expression one by one */
         {
-            char character=value.charAt(loop);
+            char ch = express.charAt(i);
 
-            // If the scanned character is an operand (number here),
-            // push it to the stack.
-            if(Character.isDigit(character))
-                stack.push(character - '0');
+            if(Character.isDigit(ch)) /* pushing value into the stack */
+                st.push(ch - '0');
 
-                //  If the scanned character is an operator, pop two
-                // elements from stack apply the operator
-            else
+
+            else       /* if the operator comes it will be evaluated */
             {
-                int val1 = stack.pop();
-                int val2 = stack.pop();
+                int value1 = st.pop();
+                int value2 = st.pop();
 
-                switch(character)
+                switch(ch)
                 {
                     case '+':
-                        stack.push(val2+val1);
+                        st.push(value2 + value1);
                         break;
 
                     case '-':
-                        stack.push(val2- val1);
-                        break;
-
-                    case '/':
-                        stack.push(val2/val1);
+                        st.push(value2 - value1);
                         break;
 
                     case '*':
-                        stack.push(val2*val1);
+                        st.push(value2*value1);
+                        break;
+                    case '/':
+                        st.push(value2/value1);
                         break;
                 }
             }
         }
-        return stack.pop();
+        return st.pop();   // result return
     }
 
     static int Prec(char ch)
@@ -125,7 +119,9 @@ public class ExpressionSolver {
     }
 
     public static String solve(String value){
-        int temp = evaluatePostfix(infixToPostfix(value));
+
+        int temp = evalPostfix(infixToPostfix(value));
+
         return Integer.toString(temp);
     }
 

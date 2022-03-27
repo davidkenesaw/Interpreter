@@ -26,12 +26,38 @@ public class Interpreter {
                 AssignmentStatement();
             }else if(tokenInterpret.peek().getToken().equals("print_keyword")){
                 PrintStatement();
-            } else if(tokenInterpret.peek().getToken().equals("end_keyword")){
+            }
+            else if(tokenInterpret.peek().getLexeme().equals("while_keyword")){
+                WhileStatement();
+            }
+            else if(tokenInterpret.peek().getToken().equals("end_keyword")){
                 tokenInterpret.remove();
+                //if broken, might need to remove
+                return;
             }
         }
     }
 
+    public void WhileStatement(){
+        tokenInterpret.remove();
+
+        String repOperator = tokenInterpret.peek().getLexeme();
+        tokenInterpret.remove();
+
+        String variable = tokenInterpret.peek().getLexeme();
+        tokenInterpret.remove();
+
+        String Limit = tokenInterpret.peek().getLexeme();
+        tokenInterpret.remove();
+
+        tokenInterpret.remove();
+
+        //while loop
+        int variableInt = Integer.parseInt(getValueOfVariable(variable));
+        int limit = Integer.parseInt(Limit);
+
+
+    }
 
     public void AssignmentStatement(){
         String variable = tokenInterpret.peek().getLexeme();
@@ -74,7 +100,13 @@ public class Interpreter {
         }
         return expression;
     }
-
+    public boolean booleanExpression(int left, int right, String repOp){
+        if(repOp.equals("<")){
+            if(left < right)return true;
+            else return false;
+        }
+        return false;
+    }
     //==============================Helper==================================
     public void AddtoQueue(ArrayList<Scan> array){
         //fills queue with tokens
