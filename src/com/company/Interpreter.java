@@ -9,6 +9,8 @@ import java.util.Queue;
 
 public class Interpreter {
 
+    ArrayList<Scan> WhileBody = new ArrayList<Scan>();
+
     Queue<Scan> tokenInterpret = new LinkedList<Scan>();
     ArrayList<VariableAssignment> variables = new ArrayList<VariableAssignment>();
 
@@ -65,7 +67,7 @@ public class Interpreter {
         tokenInterpret.remove();
 
         String expression = ArithmeticExpression();
-        System.out.println(variable+"="+expression + " = " + ExpressionSolver.solve(expression));
+        //System.out.println(variable+"="+expression + " = " + ExpressionSolver.solve(expression));
 
         if(variableContains(variable)){
             System.out.println("got it");
@@ -77,10 +79,10 @@ public class Interpreter {
     }
 
     public void PrintStatement(){
-        System.out.println(tokenInterpret.peek().getLexeme());
+        //System.out.println(tokenInterpret.peek().getLexeme());
         tokenInterpret.remove();
         String expression = ArithmeticExpression();
-        System.out.println(expression);
+        //System.out.println(expression);
         System.out.println(ExpressionSolver.solve(expression));
     }
 
@@ -108,6 +110,7 @@ public class Interpreter {
         return false;
     }
     //==============================Helper==================================
+
     public void AddtoQueue(ArrayList<Scan> array){
         //fills queue with tokens
         for(int loop = 0; loop < array.size(); loop++){

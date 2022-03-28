@@ -4,125 +4,150 @@ import java.util.Stack;
 
 public class ExpressionSolver {
 
-    public static int evalPostfix(String express)
-    {
-        Stack<Integer> st = new Stack<>();
-
-        for(int i=0; i < express.length(); i++) /* loop to scan all elements of the expression one by one */
-        {
-            char ch = express.charAt(i);
-
-            if(Character.isDigit(ch)) /* pushing value into the stack */
-                st.push(ch - '0');
-
-
-            else       /* if the operator comes it will be evaluated */
-            {
-                int value1 = st.pop();
-                int value2 = st.pop();
-
-                switch(ch)
-                {
-                    case '+':
-                        st.push(value2 + value1);
-                        break;
-
-                    case '-':
-                        st.push(value2 - value1);
-                        break;
-
-                    case '*':
-                        st.push(value2*value1);
-                        break;
-                    case '/':
-                        st.push(value2/value1);
-                        break;
-                }
-            }
-        }
-        return st.pop();   // result return
+    //=================================helper=======================================================
+    public static String solve(String value){
+        int temp = evaluate(value);
+        return Integer.toString(temp);
     }
 
-    static int Prec(char ch)
+
+    //=================================Expression solver=======================================================
+    public static int evaluate(String expression)
     {
-        switch (ch)
+        char[] tokens = expression.toCharArray();
+
+        // Stack for numbers: 'values'
+        Stack<Integer> values = new
+                Stack<Integer>();
+
+        // Stack for Operators: 'ops'
+        Stack<Character> ops = new
+                Stack<Character>();
+
+        for (int i = 0; i < tokens.length; i++)
+        {
+
+            // Current token is a
+            // whitespace, skip it
+            if (tokens[i] == ' ')
+                continue;
+
+            // Current token is a number,
+            // push it to stack for numbers
+            if (tokens[i] >= '0' &&
+                    tokens[i] <= '9')
+            {
+                StringBuffer sbuf = new
+                        StringBuffer();
+
+                // There may be more than one
+                // digits in number
+                while (i < tokens.length &&
+                        tokens[i] >= '0' &&
+                        tokens[i] <= '9')
+                    sbuf.append(tokens[i++]);
+                values.push(Integer.parseInt(sbuf.
+                        toString()));
+
+                // right now the i points to
+                // the character next to the digit,
+                // since the for loop also increases
+                // the i, we would skip one
+                //  token position; we need to
+                // decrease the value of i by 1 to
+                // correct the offset.
+                i--;
+            }
+
+            // Current token is an opening brace,
+            // push it to 'ops'
+            else if (tokens[i] == '(')
+                ops.push(tokens[i]);
+
+                // Closing brace encountered,
+                // solve entire brace
+            else if (tokens[i] == ')')
+            {
+                while (ops.peek() != '(')
+                    values.push(applyOp(ops.pop(),
+                            values.pop(),
+                            values.pop()));
+                ops.pop();
+            }
+
+            // Current token is an operator.
+            else if (tokens[i] == '+' ||
+                    tokens[i] == '-' ||
+                    tokens[i] == '*' ||
+                    tokens[i] == '/')
+            {
+                // While top of 'ops' has same
+                // or greater precedence to current
+                // token, which is an operator.
+                // Apply operator on top of 'ops'
+                // to top two elements in values stack
+                while (!ops.empty() &&
+                        hasPrecedence(tokens[i],
+                                ops.peek()))
+                    values.push(applyOp(ops.pop(),
+                            values.pop(),
+                            values.pop()));
+
+                // Push current token to 'ops'.
+                ops.push(tokens[i]);
+            }
+        }
+
+        // Entire expression has been
+        // parsed at this point, apply remaining
+        // ops to remaining values
+        while (!ops.empty())
+            values.push(applyOp(ops.pop(),
+                    values.pop(),
+                    values.pop()));
+
+        // Top of 'values' contains
+        // result, return it
+        return values.pop();
+    }
+
+    // Returns true if 'op2' has higher
+    // or same precedence as 'op1',
+    // otherwise returns false.
+    public static boolean hasPrecedence(
+            char op1, char op2)
+    {
+        if (op2 == '(' || op2 == ')')
+            return false;
+        if ((op1 == '*' || op1 == '/') &&
+                (op2 == '+' || op2 == '-'))
+            return false;
+        else
+            return true;
+    }
+
+    // A utility method to apply an
+    // operator 'op' on operands 'a'
+    // and 'b'. Return the result.
+    public static int applyOp(char op,
+                              int b, int a)
+    {
+        switch (op)
         {
             case '+':
+                return a + b;
             case '-':
-                return 1;
-
+                return a - b;
             case '*':
+                return a * b;
             case '/':
-                return 2;
-
-            case '^':
-                return 3;
+                if (b == 0)
+                    throw new
+                            UnsupportedOperationException(
+                            "Cannot divide by zero");
+                return a / b;
         }
-        return -1;
-    }
-
-    // The main method that converts
-    // given infix expression
-    // to postfix expression.
-    static String infixToPostfix(String exp)
-    {
-        // initializing empty String for result
-        String result = new String("");
-
-        // initializing empty stack
-        Stack<Character> stack = new Stack<>();
-
-        for (int i = 0; i<exp.length(); ++i)
-        {
-            char c = exp.charAt(i);
-
-            // If the scanned character is an
-            // operand, add it to output.
-            if (Character.isLetterOrDigit(c))
-                result += c;
-
-                // If the scanned character is an '(',
-                // push it to the stack.
-            else if (c == '(')
-                stack.push(c);
-
-                //  If the scanned character is an ')',
-                // pop and output from the stack
-                // until an '(' is encountered.
-            else if (c == ')')
-            {
-                while (!stack.isEmpty() &&
-                        stack.peek() != '(')
-                    result += stack.pop();
-
-                stack.pop();
-            }
-            else // an operator is encountered
-            {
-                while (!stack.isEmpty() && Prec(c)
-                        <= Prec(stack.peek())){
-
-                    result += stack.pop();
-                }
-                stack.push(c);
-            }
-
-        }
-
-        // pop all the operators from the stack
-        while (!stack.isEmpty()){
-            if(stack.peek() == '(')
-                return "Invalid Expression";
-            result += stack.pop();
-        }
-        return result;
-    }
-
-    public static String solve(String value){
-
-        int temp = evalPostfix(infixToPostfix(value));
-
-        return Integer.toString(temp);
+        return 0;
     }
 
 }
