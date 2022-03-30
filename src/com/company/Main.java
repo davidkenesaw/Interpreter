@@ -28,7 +28,7 @@ public class Main {
     //array list used for storing tokens and lexemes
     public static BufferedReader reader=null;
     //reads to file
-    public static BufferedWriter writer=null;
+
     //writes to file
     public static ArrayList<Integer> LineNumbers = new ArrayList<Integer>();
     //stores the line number
@@ -43,7 +43,7 @@ public class Main {
 
         //Scanner
         try{
-            scan2(InputFile,OutputFile);
+            scan2(InputFile);
             //method used to scan input file to build the symbol table
 
         }catch (IOException e){
@@ -52,7 +52,7 @@ public class Main {
         }
         finally {
             reader.close();
-            writer.close();
+
             //close the reader and writer
         }
         System.out.println("==================================Scanner=====================================");
@@ -78,9 +78,9 @@ public class Main {
         interpret.printVariables();
 
     }
-    public static void scan2(String input, String output) throws IOException {
+    public static void scan2(String input) throws IOException {
         reader = new BufferedReader(new FileReader(input));
-        writer = new BufferedWriter(new FileWriter(output));
+
 
         int LineNumber = 1;
         String line;
