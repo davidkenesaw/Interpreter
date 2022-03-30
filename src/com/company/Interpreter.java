@@ -34,7 +34,6 @@ public class Interpreter {
             }
             else if(original.peek().getToken().equals("end_keyword")){
                 original.remove();
-                //if broken, might need to remove
             }
         }
 
@@ -43,13 +42,10 @@ public class Interpreter {
     public void WhileStatement(Queue<Scan> original){
 
         original.remove();
-
         String repOperator = original.peek().getLexeme();
         original.remove();
-
         String variable = original.peek().getLexeme();
         original.remove();
-
         String Limit = original.peek().getLexeme();
         original.remove();
 
@@ -85,24 +81,21 @@ public class Interpreter {
 
         }
 
-
+        WhileBody.clear();
     }
 
     public void AssignmentStatement(Queue<Scan> original){
 
         String variable = original.peek().getLexeme();
-        //System.out.println(variable + " 2");
         original.remove();
-        //System.out.println(original.peek().getLexeme() + " 3");
         original.remove();
-        //System.out.println(original.peek().getLexeme() + " 4");
+
 
 
         String expression = ArithmeticExpression(original);
         //System.out.println(variable+"="+expression + " = " + ExpressionSolver.solve(expression));
 
         if(variableContains(variable)){
-
             variables.set(variableGetIndex(variable),new VariableAssignment(variable,ExpressionSolver.solve(expression)));
         }else{
 
@@ -111,10 +104,8 @@ public class Interpreter {
     }
 
     public void PrintStatement(Queue<Scan> original){
-        //System.out.println(tokenInterpret.peek().getLexeme());
         original.remove();
         String expression = ArithmeticExpression(original);
-        //System.out.println(expression);
         System.out.println(ExpressionSolver.solve(expression));
     }
 
@@ -124,7 +115,6 @@ public class Interpreter {
         String expression = "";
         int CurrentLine = original.peek().getLineNumber();
         while (CurrentLine==original.peek().getLineNumber()){
-            //System.out.println(original.peek().getLexeme() + " 5");
             if(original.peek().getToken().equals("id")){
                 expression += getValueOfVariable(original.peek().getLexeme());
             }
@@ -133,7 +123,6 @@ public class Interpreter {
             }
             original.remove();
         }
-        //System.out.println(expression);
         return expression;
     }
     public boolean booleanExpression(String left, String right, String repOp){
@@ -144,6 +133,18 @@ public class Interpreter {
             else return false;
         }else if(repOp.equals("<=")){
             if(IntLeft <= IntRight)return true;
+            else return false;
+        }else if(repOp.equals(">")){
+            if(IntLeft > IntRight)return true;
+            else return false;
+        }else if(repOp.equals(">=")){
+            if(IntLeft >= IntRight)return true;
+            else return false;
+        }else if(repOp.equals("==")){
+            if(IntLeft == IntRight)return true;
+            else return false;
+        }else if(repOp.equals("~=")){
+            if(IntLeft != IntRight)return true;
             else return false;
         }
         return false;
