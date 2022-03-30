@@ -63,16 +63,16 @@ public class Main {
 
         //Parser
         Parser parse = new Parser(SymbolTable);
-
         System.out.println();
         parse.function();
+        parse.PARSETREE();
         System.out.println();
 
         System.out.println("==================================Interpreter==================================");
 
         //Interpreter
         Interpreter interpret = new Interpreter(SymbolTable);
-        interpret.interpret();
+        interpret.interpret(interpret.tokenInterpret);
 
         interpret.printVariables();
 
