@@ -49,7 +49,6 @@ public class Parser {
 
                         if(tokenParse.peek().getToken().equals("end_keyword")){
                             ParseTree.add("end");
-                            PARSETREE();
                             return true;
                         }
                         else return false;
