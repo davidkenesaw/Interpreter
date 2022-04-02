@@ -2,9 +2,6 @@ package com.company;
 
 import org.python.util.PythonInterpreter;
 
-import java.util.Stack;
-
-
 public class ExpressionSolver {
 
 
