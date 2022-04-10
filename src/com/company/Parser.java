@@ -31,6 +31,7 @@ public class Parser {
 
     //BNF
     public boolean function(){
+
         //if the token is equal to function
         if(tokenParse.peek().getToken().equals("func_keyword")){
             tokenParse.remove();
@@ -74,18 +75,21 @@ public class Parser {
 
         //put in loop
         while(!tokenParse.isEmpty()) {
-
-            //if(tokenParse.peek().getToken().equals("if_keyword")) {
-                //if statement is a if statement
-                //tokenParse.remove();
-                //ParseTree.add("if");
-                //ifStatement();
-            //}
-        if(tokenParse.peek().getToken().equals("while_keyword")){
+            if(tokenParse.peek().getToken().equals("if_keyword")) {
+                //if statement is an if statement
+                tokenParse.remove();
+                ParseTree.add("if");
+                if(ifStatement()==false) {
+                    return false;
+                }
+            }
+            if(tokenParse.peek().getToken().equals("while_keyword")){
                 //if statement is a while statement
                 tokenParse.remove();
                 ParseTree.add("while");
-                whileStatement();
+                if(whileStatement()==false){
+                    return false;
+                }
             }else if (tokenParse.peek().getToken().equals("id")) {
                 //if statement is an assignment statement
                 tokenParse.remove();
@@ -101,6 +105,14 @@ public class Parser {
                 if (printStatement() == false) {
                     return false;
                 }
+            }else if (tokenParse.peek().getToken().equals("else_keyword")) {
+                System.out.println(tokenParse.peek().getLexeme());
+                tokenParse.remove();
+                ParseTree.add("else");
+                if(ElseStatement()==false){
+                    return false;
+                }
+                return true;
             }
             else if (tokenParse.peek().getToken().equals("end_keyword")) {
                 tokenParse.remove();
@@ -117,27 +129,20 @@ public class Parser {
         }
         return true;
     }
-    /*
+
     public boolean ifStatement(){
         if(boolExpression() == true){
             //checks for rest of if statement
             if(tokenParse.peek().getToken().equals("then_keyword")){
+
                 //checks to see if there is a then keyword
                 tokenParse.remove();
                 ParseTree.add("then");
+
                 //check body
                 if(statement() == false)return false;
-                if(tokenParse.peek().getToken().equals("else_keyword")) {
-                    tokenParse.remove();
-                    ParseTree.add("else");
-                    if(statement() == false)return false;
-                    return true;
-                }else{
-                    System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
-                    System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
-                    System.out.println("missing else keyword");
-                    return false;
-                }
+                return true;
+
             }else {
                 System.out.println("error on line number: " + tokenParse.peek().getLineNumber());
                 System.out.println("lexeme is: " + tokenParse.peek().getLexeme());
@@ -148,8 +153,11 @@ public class Parser {
             return false;
         }
     }
+    public boolean ElseStatement(){
+        if(statement()==false)return false;
+        return true;
+    }
 
-     */
     public boolean printStatement(){
 
             if(ArithmeticExpression(tokenParse.peek().getLineNumber())){
