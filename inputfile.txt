@@ -1,18 +1,19 @@
 
 function a()
 
-    x = 7
-    y = 4
-    x = 1
-    z = x
 
-    if < x 4 then
-        print(1)
+    x = 1
+
+
+
+    if < x 5 then
+        z = 1
+        print(x)
     else
-        print(2)
+        z = 2
+        print(x)
     end
 
 
-    print(z)
 
 end
