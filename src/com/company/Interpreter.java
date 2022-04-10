@@ -36,7 +36,6 @@ public class Interpreter {
                 original.remove();
             }
         }
-
     }
 
     public void WhileStatement(Queue<Scan> original){
@@ -52,10 +51,6 @@ public class Interpreter {
         original.remove();
 
         WhileBlock(variable,Limit,repOperator);
-
-        //while loop
-
-
 
     }
     public void WhileBlock(String left, String right, String rep_op){

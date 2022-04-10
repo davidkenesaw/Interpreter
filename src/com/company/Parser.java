@@ -1,6 +1,6 @@
 
 
-/*
+ /*
  * Class:       CS 4308 Section 3
  * Term:        Spring
  * Name:       David VanAsselberg
@@ -44,14 +44,11 @@ public class Parser {
 
                         ParseTree.add("<program> -> function id ( )");
                         if(statement() == false)return false;
+                        else return true;
 
                         //check for end keyword
 
-                        if(tokenParse.peek().getToken().equals("end_keyword")){
-                            ParseTree.add("end");
-                            return true;
-                        }
-                        else return false;
+
 
 
             }else {
@@ -76,7 +73,8 @@ public class Parser {
     public boolean statement(){
 
         //put in loop
-        for(int loop = 0; loop < tokenParse.size()-1; loop++) {
+        while(!tokenParse.isEmpty()) {
+
             //if(tokenParse.peek().getToken().equals("if_keyword")) {
                 //if statement is a if statement
                 //tokenParse.remove();
@@ -107,6 +105,7 @@ public class Parser {
             else if (tokenParse.peek().getToken().equals("end_keyword")) {
                 tokenParse.remove();
                 ParseTree.add("end");
+                return true;
             }
             else{
                 //if statement is not in the grammar
