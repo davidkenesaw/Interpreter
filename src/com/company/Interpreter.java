@@ -1,3 +1,12 @@
+
+/*
+ * Class:       CS 4308 Section 3
+ * Term:        Spring
+ * Name:       David VanAsselberg
+ * Instructor:   Sharon Perry
+ * Project:     Deliverable P3 Interpreter
+ */
+
 package com.company;
 
 import com.sun.jdi.Value;
@@ -31,11 +40,52 @@ public class Interpreter {
             }
             else if(original.peek().getToken().equals("while_keyword")){
                 WhileStatement(original);
+            }else if(original.peek().getToken().equals("if_keyword")){
+                IfStatement(original);
             }
             else if(original.peek().getToken().equals("end_keyword")){
                 original.remove();
             }
         }
+    }
+    public void IfStatement(Queue<Scan> original){
+        Queue<Scan> IfBody = new LinkedList<Scan>();
+        Queue<Scan> ElseBody = new LinkedList<Scan>();
+
+
+        original.remove();
+        String repOperator = original.peek().getLexeme();
+        original.remove();
+        String variable = original.peek().getLexeme();
+        original.remove();
+        String Limit = original.peek().getLexeme();
+        original.remove();
+
+        original.remove();
+        //System.out.println(repOperator+" "+variable+" "+Limit);
+
+        while(!original.peek().getToken().equals("else_keyword")){
+            IfBody.add(original.peek());
+            original.remove();
+        }
+        IfBody.add(new Scan("end",tokenInterpret.peek().getLineNumber()));
+        tokenInterpret.remove();
+        while(!original.peek().getToken().equals("end_keyword")){
+            ElseBody.add(original.peek());
+            original.remove();
+        }
+        ElseBody.add(new Scan("end",tokenInterpret.peek().getLineNumber()));
+        //printQueue(IfBody);
+        //System.out.println();
+        //printQueue(ElseBody);
+
+        if(booleanExpression(getValueOfVariable(variable),Limit,repOperator)){
+            interpret(IfBody);
+        }else{
+            interpret(ElseBody);
+        }
+
+
     }
 
     public void WhileStatement(Queue<Scan> original){

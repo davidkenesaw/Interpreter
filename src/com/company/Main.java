@@ -75,7 +75,7 @@ public class Main {
         Interpreter interpret = new Interpreter(SymbolTable);
         interpret.interpret(interpret.tokenInterpret);
 
-        interpret.printVariables();
+
 
     }
     public static void scan2(String input) throws IOException {
