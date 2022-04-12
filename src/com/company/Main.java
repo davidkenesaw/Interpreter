@@ -67,10 +67,10 @@ public class Main {
         parse.function();
         parse.PARSETREE();
         System.out.println();
-
+        System.out.println();
 
         System.out.println("==================================Interpreter==================================");
-
+        System.out.println();
         //Interpreter
         Interpreter interpret = new Interpreter(SymbolTable);
         interpret.interpret(interpret.tokenInterpret);

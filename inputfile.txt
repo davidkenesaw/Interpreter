@@ -3,15 +3,15 @@ function a()
 
 
     x = 1
-
+    y = 0
 
 
     if < x 5 then
-        z = 1
-        print(x)
+        y = 1
+        print(y)
     else
-        z = 2
-        print(x)
+        y = 2
+        print(y)
     end
 
 

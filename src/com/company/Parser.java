@@ -106,7 +106,6 @@ public class Parser {
                     return false;
                 }
             }else if (tokenParse.peek().getToken().equals("else_keyword")) {
-                System.out.println(tokenParse.peek().getLexeme());
                 tokenParse.remove();
                 ParseTree.add("else");
                 if(ElseStatement()==false){
