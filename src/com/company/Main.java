@@ -42,7 +42,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         //source code file
-        String InputFile = "inputfile.txt";
+        String InputFile = "inputfile.jl";
 
         //Scanner
         try{
