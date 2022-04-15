@@ -79,7 +79,7 @@ public class Main {
         int LineNumber = 1;
         String line;
         while((line = reader.readLine()) != null){
-            if(!line.isBlank()) {
+            if(!line.isBlank() && !line.contains("//")) {
                 line = line.trim();
                 String[] CurrentLine = line.split("[()\\s]+");
                 AddToTable(CurrentLine, LineNumber);
