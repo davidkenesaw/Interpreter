@@ -1,14 +1,14 @@
+
 function a()
 
-
-
+    x = 7
+    y = x + 3
     x = 4
+    z = 4 + x / 2 * 3
 
-    if < x 4 then
-        print(1)
-    else
-        print(2)
-    end
+    print(x)
+    print(y)
+    print(z)
 
 
 end
