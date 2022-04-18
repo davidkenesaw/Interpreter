@@ -1,11 +1,4 @@
 
-/*
- * Class:       CS 4308 Section 3
- * Term:        Spring
- * Name:       David VanAsselberg
- * Instructor:   Sharon Perry
- * Project:     Deliverable P3 interpreter
- */
 
 package com.company;
 

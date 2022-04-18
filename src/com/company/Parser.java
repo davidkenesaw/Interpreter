@@ -1,12 +1,5 @@
 
 
- /*
- * Class:       CS 4308 Section 3
- * Term:        Spring
- * Name:       David VanAsselberg
- * Instructor:   Sharon Perry
- * Project:     Deliverable P2 Parser
- */
 
 
 

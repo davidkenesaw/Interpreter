@@ -1,31 +1,4 @@
 
-/*
- * Class:       CS 4308 Section 3
- * Term:        Spring
- * Name:       David VanAsselberg
- * Instructor:   Sharon Perry
- * Project:     Deliverable P1 Scanner
- */
-
-//and
-
-/*
- * Class:       CS 4308 Section 3
- * Term:        Spring
- * Name:       David VanAsselberg
- * Instructor:   Sharon Perry
- * Project:     Deliverable P2 Parser
- */
-
-//and
-
-/*
- * Class:       CS 4308 Section 3
- * Term:        Spring
- * Name:       David VanAsselberg
- * Instructor:   Sharon Perry
- * Project:     Deliverable P3 Interpreter
- */
 
 package com.company;
 
