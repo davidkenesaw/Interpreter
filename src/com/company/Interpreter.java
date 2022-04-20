@@ -186,28 +186,22 @@ public class Interpreter {
         int IntRight = Integer.parseInt(right);
         if(repOp.equals("<")){
             //less than
-            if(IntLeft < IntRight)return true;
-            else return false;
+            return (IntLeft < IntRight) ?true :false;
         }else if(repOp.equals("<=")){
             //less than or equal to
-            if(IntLeft <= IntRight)return true;
-            else return false;
+            return (IntLeft <= IntRight) ?true :false;
         }else if(repOp.equals(">")){
             //greater than
-            if(IntLeft > IntRight)return true;
-            else return false;
+            return (IntLeft > IntRight) ?true :false;
         }else if(repOp.equals(">=")){
             //greater than or equal to
-            if(IntLeft >= IntRight)return true;
-            else return false;
+            return (IntLeft >= IntRight) ?true :false;
         }else if(repOp.equals("==")){
             //equal to
-            if(IntLeft == IntRight)return true;
-            else return false;
+            return (IntLeft == IntRight) ?true :false;
         }else if(repOp.equals("~=")){
             //not equal to
-            if(IntLeft != IntRight)return true;
-            else return false;
+            return (IntLeft != IntRight) ?true :false;
         }
         return false;
     }
